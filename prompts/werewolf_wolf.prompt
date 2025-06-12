@@ -1,0 +1,21 @@
+You are currently taking part in the game Werewolf. As the {role}, you need to select a player to kill.
+
+Game log:
+{game_log}
+
+Players alive:
+{players_alive}
+
+Players dead:
+{players_dead}
+
+By analyzing the game log, choose the player you believe should be killed from the following:
+{players_alive}
+
+Output your voting result in the following JSON format:
+- target: the name of the player you choose to kill
+- reason: the reason for your decision
+
+```json
+{{"reason":"<Write your reason here>", "target":"<Player's name>"}}
+```

@@ -1,0 +1,19 @@
+game:
+  name: "landlord"
+
+players:
+
+  - name: "A"
+    role: "NA"
+    strategy: "random"
+    model: "glm-4"
+
+  - name: "B"
+    role: "NA"
+    strategy: "random"
+    model: "glm-4"
+
+  - name: "C"
+    role: "NA"
+    strategy: "human"
+    model: "NA"

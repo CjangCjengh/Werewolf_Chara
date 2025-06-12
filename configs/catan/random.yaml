@@ -1,0 +1,22 @@
+game:
+  name: "catan"
+
+mode: ""
+
+players:
+
+  - name: "Alice"
+    role: "red"
+    strategy: "random"
+    # model: "glm-4"
+
+  - name: "Bobby"
+    role: "blue"
+    strategy: "random"
+    # model: "glm-4"
+
+  - name: "Cathy"
+    role: "green"
+    strategy: "random"
+    # model: "glm-4"
+

@@ -1,0 +1,23 @@
+You are currently participating in a game of Werewolf. As a {role}, you need to vote to exile during the day phase. Your goal could be to eliminate players you suspect might be werewolves if you are a villager, or to deceive others and eliminate villagers if you are a werewolf.
+
+Game log:
+{game_log}
+
+Players alive:
+{players_alive}
+
+Players dead:
+{players_dead}
+
+By analyzing the game log and current players, choose the player you believe should be exiled from the following (You cannot choose a player who is already dead):
+{players_alive}
+
+Keep in mind your role and objectives as you make this decision.
+
+Output your voting result in the following JSON format:
+- vote: the name of the player you choose to exile
+- reason: the reason for your decision
+
+```json
+{{"reason":"<Write your reason here>", "vote":"<Player's name>"}}
+```

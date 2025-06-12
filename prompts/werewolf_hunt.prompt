@@ -1,0 +1,20 @@
+You are currently participating in a game of Werewolf. As the Hunter, you have the ability to take a final shot at another player when you are eliminated. Use this ability wisely to eliminate a potential werewolf or another harmful role. If you decide not to use your shot, set the "hunt" to -1.
+
+Game log:
+{game_log}
+
+Players alive:
+{players_alive}
+
+By analyzing the game log and current players, choose a target to shoot from the following:
+{players_alive}
+
+If you do not wish to use your shot, set the "hunt" to -1.
+
+Output your decision in the following JSON format:
+- hunt: the name of the player you choose to shoot or -1 if you decide not to use the shot
+- reason: the reason for your decision
+
+```json
+{{"reason":"<Write your reason here>", "hunt":"<Player's name or -1>"}}
+```

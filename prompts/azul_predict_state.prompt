@@ -1,0 +1,123 @@
+
+
+
+you are assisting {name} to play a board game called Azul, your responsibility is to help the user {name} win the game by predicting state based on current action of the player.
+
+## Game Setup
+There are two players, each player has a player board. On the player board, there are pattern lines, the wall, and the floor line. 
+
+    The pattern lines have 5 lines, the first line can contain one tile, the second two, the third three, the fourth four, and the fifth five. 
+    The wall is a 5*5 grid, with it's color pattern like:
+        
+            ['green', 'yellow', 'red', 'purple', 'blue'],
+            ['blue', 'green', 'yellow', 'red', 'purple'],
+            ['purple', 'blue', 'green', 'yellow', 'red'],
+            ['red', 'purple', 'blue', 'green', 'yellow'],
+            ['yellow', 'red', 'purple', 'blue', 'green']
+        
+
+There are totally 100 tiles (20 of them are blue, 20 of them are red, 20 of them are yellow, 20 of them are purple, and 20 of them are green). Initially, these 100 tiles are randomly stored in the tile bag. 
+
+To begin, we place 5 factory symbol in a circle, and put a special starting player marker which is a tile named "ONE" in the center.
+
+Then, randomly fetch 20 tiles from the tile bag, and each factory will get 4 of these 20 tiles randomly.
+
+
+## Objective of the game
+
+To win the most points at the end of the game. The game ends after the round in which at least one player has completed a horizontal line of 5 consecutive tiles on their wall.
+
+
+## Gameplay
+
+The game is played over multiple rounds, each of which is composed of three phases:
+    A. Factory offer
+    B. Wall-tilling
+    C. Preparing the next round
+
+A. Factory offer
+    The starting player places the starting player marker in thecenter of the table and then takes the first turn. Play then continues clockwise.
+    On your turn, you must pick tiles in one of the following ways:
+    EITHER
+        a) Pick all tiles of the same color from any one Factory displayand then move the remaining tiles from this Factory displayto the center of the table.
+        OR
+        b) Pick all tiles of the same color from the center of the table
+        If you are the first player in this round to pick tiles from the center of the table, also take the starting player marker and place it onto the leftmost free space of your floor line.
+    
+    Then, add the tiles you picked to one of the 5 pattern lines on your player board (the first line has 1 space to hold 1 tile, the fifth line has 5).
+    Place the tiles, one by one, from right to left in your chosen pattern line. If the pattern line already holds tiles, you may only add tiles of the same color to it.
+
+    Once all spaces ofa pattern line are filled. that line is considered complete. Ifyou have picked upmore tiles than you can place in your chosen pattern line, you must place the excess tiles in the floor line (see Floor line).
+
+    Your goal in this phase is to complete as many of your patternlines as you can, because during the following Wall-tiling phaseyou will only be able to move tiles from complete pattern lines totheir corresponding lines on your wall to score points.
+
+    In all later rounds, you must also comply with the followingrule: You are not allowed to place tiles of a certain color ina pattern line whose corresponding line of your wall alreadyholds a tile of that color.
+
+    Floor line:
+
+    Any tiles you have picked that you cannot or do not want to place according to the rules, you must place in your floor line, fillingits spaces from left to right. These tiles are considered as havingfallen on the floor and give minus points in the Wall-tiling phase.Ifall spaces of your floor line are occupied, return any furtherfallen tiles to the lid of the game box to store them for now.
+
+    This phase ends when the center of the table AND all Factorydisplays contain no more tiles.
+
+    Then, continue with the Wall-tiling phase.
+
+B.Wall-tiling
+    This phase can be carried out by all players simultaneouskas they move tiles from their complete pattern lines over totheir walls.
+
+    A) Go through your pattern lines from top to bottomMove the rightmost tile oeach complete line to thespace of the same color inthe corresponding line ofyour wall. Each time you move a tile, score points immediately (see Scoring).
+
+    B) Then, remove all tiles from any pattern lines that nowhave no tile in the rightmost space. Place them into thelid of the game box to store them for now.
+
+    Once that is done, any remaining tiles on the pattern linesstay on your player board for the next round.
+
+    Scoring
+
+    Each tile you move over to your wall is always placed on thespace matching its color and immediately scores as follows:
+
+    If there are no tiles directlyadjacent (vertically orhorizontally) to the newlyplaced tile, gain 1 pointon the score track.
+
+    If there are any tiles adjacent, however, do the following:First check if there are 1 or more tiles horizontally linkedto the newly placed tile. If so. count all these linked tiles(including the newly placed one) and gain that many points.
+
+    Then check if there are 1 or more tiles vertically linked to thenewly placed tile, If so, count all these linked tiles (includingthe newly placed tile) and gain that many points.
+
+    Finally, at the end of the Wall-tiling phase, check if you have antiles in your floor line. For each tile in your floor line, you losethe number of points indicated directly above it. Adjust yourscoring marker on your score track accordingly **(however, youcan never drop below 0 points)**.
+
+    Afterwards, remove all tiles in your floor line and place theminto the lid of the game box. Note: If you have the starting playemarker in your floor line, it counts as a normal tile there. Butinstead of placing it in the lid, place it in front of you.
+
+
+C. Preparing the next round
+
+    If nobody has completed a horizontal line of 5 consecutive tileson her wall yet (see End of the game), prepare the next roundThe player with the starting player marker refills each of theFactory displays with 4 tiles from the bag as in the setup. Ifthebag is empty, refill it with all the tiles that you have placed inthe lid of the game box and then continue filling the remainingFactory displays. Then, start the new round.   
+
+    In the rare case that you run out of tiles again while there arenone left in the lid, start the new round as usual even thoughnot all Factory displays are properly filled.
+
+
+
+## EnD OF THE GAME
+
+The game ends right after the Wall-tiling phase in which at leastone player has completed at least one horizontal line of5 consecutive tiles on her wall.
+
+Once the game has ended, score additional points if you haveachieved the following goals:
+
+    Gain 2 points for each complete horizontal line of 5 consecutive tiles onyour wall.
+
+    Gain 7 points for eachcomplete vertical line of 5 consecutive tiles onyour wall.
+
+    Gain 10 points for eachcolor of which you haveplaced all 5 tiles on your wall.
+
+The player with the most points on her score track wins thegame. In the case ofa tie, thetied player with more completehorizontal lines wins the game.Ifthat does not break the tie,the victory is shared.
+
+
+now, the overall state of the game is as follows:
+{obs_dict}
+
+And your task is to predict the state of the factory after the player doing the action: {action}.
+
+##输出：
+将你的输出结果以Json格式输出：
+- 不要做任何解释
+- 不要更改输出格式
+- remember to use double quote
+
+例如
+{obs_dict}

@@ -1,0 +1,23 @@
+You are currently participating in a game of Werewolf. As the Seer, your role is to identify players' true identities each night. You can use your ability to check if a player is a werewolf or not.
+
+Game log:
+{game_log}
+
+Players alive:
+{players_alive}
+
+Players dead:
+{players_dead}
+
+By analyzing the game log and current players, choose the player you believe should be inspected from the following:
+{players_alive}
+
+Choose wisely to maximize your chance of helping the village.
+
+Output your inspection choice in the following JSON format:
+- player: the name of the player you choose to inspect
+- reason: the reason for your decision
+
+```json
+{{"reason":"<Write your reason here>", "player":"<Player's name>"}}
+```

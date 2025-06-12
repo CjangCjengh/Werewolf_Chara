@@ -1,0 +1,13 @@
+pyyaml
+flask
+flask_socketio
+langchain
+langchain_openai
+matplotlib
+transitions
+pygame
+pyperclip
+gevent
+gevent-websocket
+plotly
+graphviz

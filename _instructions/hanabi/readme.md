@@ -1,0 +1,86 @@
+# Hanabi
+
+
+## CONTENTS
+50 Hanabi cards
+8 CLUE tokens
+3 ERROR cards
+
+## OBJECTIVE OF THE GAME
+
+Hanabi is a cooperative game, that is, a game where the players do not play against each other, but work as a team to achieve a common goal.
+
+The players of Hanabi become one of the people in charge of an impressive fireworks display. However, they were distracted and got the gunpowder, fuses and rockets mixed up. The show is about to start and panic is spreading. You must join forces to prevent the show from being a disaster!
+
+The cunning pyrotechnicians must put together the fireworks in 5 series (1 white, 1 red, 1 blue, 1 yellow, 1 green), arranging the cards by color and in ascending order (1, 2, 3, 4, 5).
+
+Note: the values of the cards are 1, 1, 1, 2, 2, 3, 3, 4, 4, 5 for each color.
+
+## GAME SET UP
+
+- Give each player a card holder.
+- Place the bag on the table and place the 8 CLUE tokens on top of it.
+- Group the 3 ERROR cards with the blue side facing up.
+- Shuffle the 50 cards and place them face down forming a deck.
+- Deal a hand to each player:
+	- there are 2 players, each player receives 5 cards.
+
+Important: Players cannot look at their cards! They must place them on the card holder in such a way that the rest of the players can see them, but not themselves. In other words, they must place them so that the back of their own cards faces them. It is not allowed for any player to look at their own cards during the game. A fireworks master must be honorable and incorruptible!
+
+## THE GAME
+The player who is wearing the most colorful clothes is the starting player.The game will proceed clockwise. On their turn, each player has to perform one, and only one, of the following three actions (you cannot skip your turn):
+
+1. Give clue
+2. Discard a card
+3. Play a card
+
+Note: during each player’s turn, the teammates cannot make any comments or try to influence the decisions of the active player.
+
+###  1. Give clue
+When a player decides to perform this action, they have to remove one of the CLUE tokens from the bag and put it aside. Next, they can give one piece of information about another player’s cards.
+Important: the player must clearly point out the cards they are giving information about.
+
+You can give two kinds of information: 
+1. Information about a colour (only one).
+	- Examples: “You have a red card here” 
+	- Examples: “You have no white cards.”
+	- Examples: “You have two green cards, here and here.”
+1. Information about a value (only one).
+	- Examples: “You have a number 5 card here” 
+	- Examples: “You have no number 4 cards.”
+	- Examples: “You have two number 1 cards, here and here.”
+	Important: you must provide complete information. If a player has two green cards, you cannot just point to one of them. Both must be pointed out at the same time, without paying more attention to one over the other
+
+Note: this action cannot be performed if there are no CLUE tokens over the bag. In that case, the player must perform a different action.
+
+### 2. DISCARD A CARD
+
+This action allows you to place a CLUE token on the bag again. The player discards a card from their card holder and places it next to the bag. The discards are placed together on the table where all players can consult them when they wish. Next, the player draws a new card and places it on the card holder without looking at it.
+
+Note: this action cannot be performed if there are no CLUE tokens off the bag. In that case, the player must perform a different action.
+
+### 3. PLAY A CARD
+
+The player picks a card and plays it in front of them.
+There are two possible results:
+- the card starts, continues or completes a series, in which case it is added to the fireworks display; or
+- the card does not fit on any series, in which case the card is discarded and one of the ERROR tiles is turned over to show the red face up.
+
+Next, the player draws a new card and places it on their card holder without looking at it.
+
+HOW THE FIREWORKS SERIES ARE FORMED
+There can only be one fireworks series in each color. Cards are placed in ascending order (1, then 2, then 3, then 4 and, finally, 5).There can only be one card of each value in each one of the fireworks series (each series has 5 cards in total).
+
+BONUS FOR COMPLETING A SERIES
+When a player completes a fireworks display (that is, when a 5-value card is played successfully), one of the CLUE tokens is placed back on the bag. It is not necessary for the player to discard any cards to do this, since it is a free move. This bonus is lost if all the CLUE tokens are already on the bag.
+
+## END OF THE GAME
+
+There are 3 ways of ending a Hanabi game:
+- The show is immediately over and lost when the third ERROR card is flipped over.
+- The show ends immediately with an amazing victory if the fireworks technicians manage to complete the 5 fireworks displays before the deck runs out. The players would get the maximum score: 25 points.
+- The game ends when a fireworks technician draws the last card in the deck. At that moment, the last round for all players starts, including the player who drew the last card of the deck. The players won’t be able to draw more cards this round, since there won’t be a deck to draw from.
+- Once this last round is completed, the game ends and the players proceed to calculate their score.
+
+SCORING
+To calculate the score, the players must add the values of the highest card of each fireworks series.

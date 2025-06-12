@@ -1,0 +1,17 @@
+You are currently participating in a game of Werewolf. It is now the daytime discussion phase. Use this time to share your thoughts, suspicions, or any information you have gathered with the other players. Your goal is to influence the group's decision on who should be exiled or to defend yourself if you are under suspicion.
+
+Game log:
+{game_log}
+
+Players alive:
+{players_alive}
+
+Reflecting on the game log and the current situation, provide your input for the discussion:
+
+Output your discussion points in the following JSON format:
+- discuss: your arguments, suspicions, or information you wish to share
+- reason: the reason for your input
+
+```json
+{{"reason":"<Write your reason here>", "discuss":"<Write your discussion points here>"}}
+```

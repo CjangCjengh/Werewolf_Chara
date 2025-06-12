@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>斗地主游戏</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #e8f0f2;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #game-state {
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .input-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #checkbox-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .checkbox-item {
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .checkbox-item:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.05);
+        }
+        .checkbox-item input[type="checkbox"] {
+            display: none;
+        }
+        .checkbox-item img {
+            width: 50px;
+            height: auto;
+        }
+        .checkbox-item--selected {
+            background-color: #ddf;
+            border: 1px solid #007bff;
+        }
+        #submit-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        #submit-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .checkbox-item label {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>斗地主游戏</h1>
+    <div id="game-state">
+        <!-- Game state visualization will be rendered here -->
+    </div>
+    <div class="input-section">
+        <div id="checkbox-container"></div>
+        <button id="submit-button">Submit</button>
+    </div>
+
+    <script>
+        const cardImages = {
+            '10♣': '10_of_clubs.png',
+            '10♦': '10_of_diamonds.png',
+            '10♥': '10_of_hearts.png',
+            '10♠': '10_of_spades.png',
+            '2♣': '2_of_clubs.png',
+            '2♦': '2_of_diamonds.png',
+            '2♥': '2_of_hearts.png',
+            '2♠': '2_of_spades.png',
+            '3♣': '3_of_clubs.png',
+            '3♦': '3_of_diamonds.png',
+            '3♥': '3_of_hearts.png',
+            '3♠': '3_of_spades.png',
+            '4♣': '4_of_clubs.png',
+            '4♦': '4_of_diamonds.png',
+            '4♥': '4_of_hearts.png',
+            '4♠': '4_of_spades.png',
+            '5♣': '5_of_clubs.png',
+            '5♦': '5_of_diamonds.png',
+            '5♥': '5_of_hearts.png',
+            '5♠': '5_of_spades.png',
+            '6♣': '6_of_clubs.png',
+            '6♦': '6_of_diamonds.png',
+            '6♥': '6_of_hearts.png',
+            '6♠': '6_of_spades.png',
+            '7♣': '7_of_clubs.png',
+            '7♦': '7_of_diamonds.png',
+            '7♥': '7_of_hearts.png',
+            '7♠': '7_of_spades.png',
+            '8♣': '8_of_clubs.png',
+            '8♦': '8_of_diamonds.png',
+            '8♥': '8_of_hearts.png',
+            '8♠': '8_of_spades.png',
+            '9♣': '9_of_clubs.png',
+            '9♦': '9_of_diamonds.png',
+            '9♥': '9_of_hearts.png',
+            '9♠': '9_of_spades.png',
+            'A♣': 'A_of_clubs.png',
+            'A♦': 'A_of_diamonds.png',
+            'A♥': 'A_of_hearts.png',
+            'A♠': 'A_of_spades.png',
+            '小王': 'Black Joker.png',
+            'J♣': 'J_of_clubs.png',
+            'J♦': 'J_of_diamonds.png',
+            'J♥': 'J_of_hearts.png',
+            'J♠': 'J_of_spades.png',
+            'K♣': 'K_of_clubs.png',
+            'K♦': 'K_of_diamonds.png',
+            'K♥': 'K_of_hearts.png',
+            'K♠': 'K_of_spades.png',
+            'Q♣': 'Q_of_clubs.png',
+            'Q♦': 'Q_of_diamonds.png',
+            'Q♥': 'Q_of_hearts.png',
+            'Q♠': 'Q_of_spades.png',
+            '大王': 'Red Joker.png'
+        };
+
+        async function checkCondition() {
+            const response = await fetch('/check_condition');
+            const data = await response.json();
+            if (data.condition_met) {
+                await fetchUpdate();
+            }
+        }
+
+        async function fetchUpdate() {
+            try {
+                const response = await fetch('/get_update');
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                updateGameState(data);
+            } catch (error) {
+                console.error('Failed to fetch update:', error);
+            }
+        }
+
+        function updateGameState(data) {
+            const gameStateDiv = document.getElementById('game-state');
+            gameStateDiv.innerHTML = `
+                <div>
+                    <h3>Playing History</h3>
+                    <div style="background-color: #ffa;">
+                        ${data.playing_history.join('<br/>')}
+                    </div>
+                    <h3>Your Cards</h3>
+                    <div style="background-color: #cff;">
+                        ${data.current_cards}
+                    </div>
+                    <h3>Bidding History</h3>
+                    <div style="background-color: #cfc;">
+                        ${data.bidding_history.join('<br/>')}
+                    </div>
+                    <h3>Landlord Player</h3>
+                    <div style="background-color: #fcf;">
+                        ${data.landlord_player+1}
+                    </div>
+                </div>
+            `;
+
+            const checkboxContainer = document.getElementById('checkbox-container');
+            checkboxContainer.innerHTML = '';
+            data.candidate_action.forEach(action => {
+                const checkboxItem = document.createElement('div');
+                checkboxItem.className = 'checkbox-item';
+                checkboxItem.innerHTML = `
+                    <label>
+                        <input type="checkbox" value="${action}">
+                        <img src="/static/images/cards/${cardImages[action]}" alt="${action}">
+                    </label>
+                `;
+                checkboxContainer.appendChild(checkboxItem);
+            });
+
+            // 为每个checkbox添加点击事件监听器
+            document.querySelectorAll('#checkbox-container .checkbox-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('checkbox-item--selected');
+                });
+            });
+            document.getElementById('checkbox-container').addEventListener('click', function (event) {
+                // 首先检查点击的元素是否是图片或checkbox容器的一部分
+                const clickedElement = event.target;
+                let checkboxItem = null;
+                if (clickedElement.tagName === 'IMG' || clickedElement.closest('.checkbox-item')) {
+                    // 如果点击的是图片，向上查找最近的.checkbox-item祖先元素
+                    checkboxItem = clickedElement.closest('.checkbox-item');
+                }
+
+                // 如果找到了.checkbox-item，继续处理
+                if (checkboxItem) {
+                    // 在.checkbox-item内部查找input[type="checkbox"]
+                    const checkbox = checkboxItem.querySelector('input[type="checkbox"]');
+
+                    // 切换checkbox的状态
+                    checkbox.checked = !checkbox.checked;
+
+                    // 根据checkbox的状态，添加或移除选中的样式
+                    if (checkbox.checked) {
+                        checkboxItem.classList.add('checkbox-item--selected');
+                    } else {
+                        checkboxItem.classList.remove('checkbox-item--selected');
+                    }
+                }
+            });
+        }
+
+        document.getElementById('submit-button').addEventListener('click', async () => {
+            const checkboxes = document.querySelectorAll('#checkbox-container input[type="checkbox"]:checked');
+            const selectedChoices = Array.from(checkboxes).map(checkbox => checkbox.value);
+            try {
+                const response = await fetch('/input', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({input: selectedChoices})
+                });
+                if (response.ok) {
+                    console.log('Input submitted successfully');
+                } else {
+                    console.error('Failed to submit input');
+                }
+            } catch (error) {
+                console.error('Failed to submit input:', error);
+            }
+        });
+
+        // Fetch updates every second
+        //setInterval(checkCondition, 1000);
+    </script>
+
+    <script>
+        const socket = io();
+
+        socket.on('connect', function() {
+            console.log('Connected to server');
+        });
+        // 确保socket变量已经定义并且连接到服务器
+    socket.on('update_observation', function(data) {
+    // 更新游戏状态的函数，你可以根据实际情况来定义这个函数
+    updateGameState(data);
+
+    // 检查是否有新的可观察内容，并更新页面
+    if (data.html_content) {
+        document.getElementById('game-state').innerHTML = data.html_content;
+    }
+
+    // 更新候选动作，这可能涉及到更新checkbox-container的内容
+    if (data.choices) {
+        const checkboxContainer = document.getElementById('checkbox-container');
+        checkboxContainer.innerHTML = ''; // 清空现有的checkbox
+        data.choices.forEach(choice => {
+            const checkboxItem = document.createElement('div');
+            checkboxItem.className = 'checkbox-item';
+            checkboxItem.innerHTML = `
+                <label>
+                    <input type="checkbox" value="${choice}">
+                    <img src="/static/images/cards/${cardImages[choice]}" alt="${choice}">
+                </label>
+            `;
+            checkboxContainer.appendChild(checkboxItem);
+        });
+    }
+});
+    </script>
+</body>
+</html>
+

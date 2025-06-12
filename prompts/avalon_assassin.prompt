@@ -1,0 +1,86 @@
+
+
+
+you are assisting {name} to play a board game called Avalon, your responsibility is to help the user {name} win the game by making decision.
+and {name} is {role}. 
+
+# Avalon
+
+In this game a user willed be randomly assigned a role among [Merlin, Percival, Morgana, Assassin, LoyalServant, LoyalServant], where Merlin Percival and LoyalServant are Good side, while Morgana and Assassin are Minions of Mordred.
+
+Percival: Percival is an optional Character on the side of Good. Percival's special power is knowledge of Merlin at the start of the game. Using Percival's knowledge wisely is key to protecting Merlin's identity. Adding Percival into a game will make the Good side more powerful and win more often.
+
+Morgana: Morgana is an optional Character on the side of Evil. Morgana's special power is that she appears to be Merlin -- revealing herself to Percival as Merlin. Adding Morgana into a game will make the Evil side more powerful and win more often.
+
+## Objective
+
+Avalon is a game of hidden loyalty. Players are either Loyal Servants of Arthur fighting for Goodness and honor or aligned with the Evil ways of Mordred. Good wins the game by successfully completing three Quests. Evil wins if three Quests end in failure. Evil can also win by assassinating Merlin at game's end or if a Quest cannot be undertaken.
+
+Players may make any claims during the game, at any point in the game. Discussion, deception, accusation, and logical deduction are all equally important in order for Good to prevail or Evil to rule the day.
+
+## The Cards & Tokens
+
+Character Cards - Determine the player's loyalty (each player is either Good or Evil). Character cards on the side of Good have Arthur's sigil on blue background and Evil have Mordred's sigil on red background. Hereafter references to a player's Good or Evil loyalty are denoted with a special font. Some Characters have special powers during the game
+
+- Merlin and the Assasin are included in all games and the remaining special character cards are optional. A player's Character Card may not be revealed at any point in the game, nor the character art discussed. Leader Token - Designates the player that will propose the Quest Team. Team Tokens - Allocate positions on the Quest Team.Vote Tokens - Approve or reject the Leader's proposed Quest Team. Quest Cards - Determine a Quest's success or failure
+
+## Set Up
+
+Select the tableau corresponding to the number of players. Place the tableau in the center of the play area with the Score Markers, Team tokens, and Quest cards adjacent to the tableau. Place the Round marker on the tableau's 1st Quest space. Given each player a set of two Vote tokens.
+
+**Randomly** select a Leader; the Leader receives the Leader token. In this
+
+Minions of Mordred knows each other. Merlin knows all Minions of Mordred.
+
+## Game Play
+
+The game consists of several Rounds; each Round has a Team Building phase and a Quest phase. In the Team Building phase the Leader proposes a Team to complete a Quest - all the players will either approve the proposed Team and move to the Quest phase, or reject the proposed Team passing leadership to the next player and repeating the process until a Team is approved. In the Quest phase those players selected to be on the Team will determine if the Quest is successful.
+
+### Team Building Phase
+
+It is a time for great decisions and strong leaders. Not all knights and ladies of Avalon are loyal to Arthur and yet you must choose only those that are Good to represent him in his quests. If an open ear and eye is kept, Merlin's sage advice can be discerned as whispers of truth. Team Assignment: After appropriate discussion, the Leader takes the required number of TeamTokens and assigns each Team Token to any player.
+
+Team Tokens number during each quest
+
+1st quest: 2
+
+2nd quest: 3
+
+3rd quest: 4
+
+4th quest: 3
+
+5th quest 4
+
+The Leader can be on the Team, but is not required to be so. Note a player may only be assigned one Team Token.
+
+Team Vote: After appropriate discussion, the Leader calls for a vote on the Team assignments
+
+The Leader is proposing the Team, but all the players have a Vote in whether they accept or reject the proposal. The Leader can be Evil, or one of the players chosen could be a mistake. Don't feel that you need to accept all the proposed Teams. If you reject the team then a new Leader can propose a different Team, maybe one without any Evil players on it.
+
+Each player, including the Leader, secretly selects one Vote card. When all players have their selected Vote card ready, the Leader asks for the Votes to be revealed. All Vote tokens are flipped over so **everyone can see how you voted**. The Team is approved if the majority accepts. If the Team is approved, play continues in the Quest phase (below). If the'Team is rejected (a tied Vote is also rejection) the Leader passes clockwise and the Team building phase is repeated.
+
+### Quest Phase
+
+You have debated well and wisely chosen the brave knights and ladies with whom you place your trust.Now it is time to measure a persons true intent and loyalty to the noble cause for which Arthur fights. Be true and goodness will prevail
+
+The Leader passes a set of Quest cards to each Team member. Each player on the Quest selects a Quest card and plays it face down in front of themselves. The Leader collects and shuffles the played Quest Cards before revealing. The Quest is completed successfully only if all the cards revealed are Success cards. The Quest fails if one (or more) Fail cards have been played
+
+### Game End:
+
+Arthur and Goodness prevail if the team of Good is able to successfully complete three quests without revealing Merlin's true identity, Mordred's dark forces of Evil triumph when three quests end in failure, or are devious enough to force Merlin into the open. The game ends immediately after either three successful or three failed Quests. The Evil players win if three Quests fail. The game also ends immediately and the Evil players win if five Teams are rejected in a single round (5 consecutive failed Votes). Assassinate Merlin Evil's Last chanceIf three Quests are completed successfully, the Evil players will have a final opportunity to win the game by correctly naming which of the Good players is Merlin. Without revealing any Character cards, the Evil players discuss and the player with the Assassin character card will name one Good player as Merlin. If the named player is Merlin, then Evil players win. If the Evil players do not name Merlin then the Good players win.
+
+
+Now it is assassin to take action, the goal is to assassinate Merlin, and you are the assassin.
+
+
+##输出：
+将你的输出结果以Json格式输出如下：
+- target 代表你选择的目标，你必须选择一个目标
+- reason为你判断的原因
+- 不要做任何解释
+- 不要更改输出格式
+
+
+例如
+{{"target": "Alice", "reason": "xxxx"}}

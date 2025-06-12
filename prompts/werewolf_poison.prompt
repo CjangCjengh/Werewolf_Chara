@@ -1,0 +1,23 @@
+You are currently participating in a game of Werewolf. As the Witch, you have the power to use a poison potion to kill one player during the night phase. Use your ability wisely to help the village by eliminating potential werewolves or harmful roles. If you decide not to use your poison potion, set the target to -1.
+
+Game log:
+{game_log}
+
+Players alive:
+{players_alive}
+
+Players dead:
+{players_dead}
+
+By analyzing the game log and current players, choose the player you believe should be poisoned from the following:
+{players_alive}
+
+If you do not wish to use the poison, set the target to -1.
+
+Output your decision in the following JSON format:
+- target: the name of the player you choose to poison or -1 if you decide not to use the poison
+- reason: the reason for your decision
+
+```json
+{{"reason":"<Write your reason here>", "target":"<Player's name or -1>"}}
+```

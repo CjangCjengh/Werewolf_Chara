@@ -1,0 +1,12 @@
+game:
+  name: "skyteam"
+
+players:
+  - name: "Alice"
+    role: "pilot"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Bobby"
+    role: "copilot"
+    strategy: "random"

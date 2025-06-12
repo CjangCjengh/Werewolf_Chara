@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Launcher</title>
+    <style>
+        .game-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        }
+        .game-icon {
+        width: auto; /* 保留原始尺寸 */
+        height: auto; /* 保留原始尺寸 */
+        margin: 20px;
+        cursor: pointer;
+        flex: 1 0 30%; /* 每行三个 */
+        max-width: 30%; /* 每行三个 */
+        box-sizing: border-box;
+        }
+        .loading-overlay {
+            display: none; /* 初始状态隐藏 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+            text-align: center;
+            padding-top: 20%;
+        }
+        .spinner {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Select a Game</h1>
+    <div>
+        <img src="{{ url_for('static', filename='images/avalon_icon.jpg') }}" class="game-icon" onclick="launchGame('avalon')" alt="Avalon">
+        <img src="{{ url_for('static', filename='images/azul_icon.webp') }}" class="game-icon" onclick="launchGame('azul')" alt="Azul">
+        <img src="{{ url_for('static', filename='images/codenames_icon.jpg') }}" class="game-icon" onclick="launchGame('codenames')" alt="Codenames">
+        <img src="{{ url_for('static', filename='images/hanabi_icon.webp') }}" class="game-icon" onclick="launchGame('hanabi')" alt="Hanabi">
+        <img src="{{ url_for('static', filename='images/skyteam_icon.png') }}" class="game-icon" onclick="launchGame('skyteam')" alt="Skyteam">
+        <img src="{{ url_for('static', filename='images/werewolf_icon.jpeg') }}" class="game-icon" onclick="launchGame('werewolf')" alt="Werewolf">
+        <img src="{{ url_for('static', filename='images/landlord_icon.jpeg') }}" class="game-icon" onclick="launchGame('landlord')" alt="Landlord">
+    </div>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>Loading game...</p>
+    </div>
+    <script>
+        function launchGame(game) {
+            // 显示加载动画
+            document.getElementById('loadingOverlay').style.display = 'block';
+
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write('<h1>Loading game...</h1>');
+
+
+            fetch(`/launch/${game}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        newWindow.location.href = data.url;
+                    } else {
+                        newWindow.close();
+                        alert(data.message || 'Failed to launch game');
+                    }
+                    // 隐藏加载动画
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                })
+                .catch(error => {
+                    newWindow.close();
+                    alert('Error launching game');
+                    // 隐藏加载动画
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+game:
+  name: "avalon"
+
+players:
+
+  - name: "Alice"
+    role: "Merlin"
+    strategy: "naive"
+    model: "deepseek-chat"
+
+  - name: "Bobby"
+    role: "Assassin"
+    strategy: "naive"
+    model: "deepseek-chat"
+
+  - name: "Chris"
+    role: "Morgana"
+    strategy: "naive"
+    model: "deepseek-chat"
+
+  - name: "Dylan"
+    role: "Percival"
+    strategy: "naive"
+    model: "deepseek-chat"
+
+  - name: "Eliza"
+    role: "LoyalServant"
+    strategy: "naive"
+    model: "deepseek-chat"
+
+  - name: "Felix"
+    role: "LoyalServant"
+    strategy: "naive"
+    model: "deepseek-chat"

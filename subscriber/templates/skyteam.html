@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyTeam Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            grid-template-rows: 4fr 1fr;
+            width: 100%;
+            height: 100vh;
+            gap: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #image {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            background-color: #ffffff;
+            display: flex;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        #left-panel, #right-panel {
+            width: 200px;
+            background-color: rgba(240, 240, 240, 0.9);
+            padding: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        #center-panel {
+            flex-grow: 1;
+            padding: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        #observation {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            background-color: #e0e0e0;
+            overflow-y: auto;
+            padding: 15px;
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        #action {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background-color: #d0d0d0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+        #player-info {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        #current-state {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        #approach-track, #altitude-track, #axis-gauge, #engine-state, #brake-system, #current-dices, #coffee-area, #wind-resistance {
+            width: 100%;
+            background-color: #f0f0f0;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #approach-track, #altitude-track {
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+        }
+        .track-step {
+            width: calc(100% / 7 - 4px);
+            height: 90%;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 5px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .track-step.current {
+            background-color: #3498db;
+            color: white;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.7);
+            transform: scale(1.1);
+            z-index: 1;
+        }
+        .track-step.past {
+            background-color: #2ecc71;
+            color: white;
+        }
+        .track-step.future {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        .track-step.reroll::after {
+            content: '*';
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 14px;
+            color: #e74c3c;
+        }
+        #axis-gauge {
+            height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .gauge {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 10px solid #ddd;
+            position: relative;
+        }
+        .gauge-center {
+            width: 10px;
+            height: 10px;
+            background-color: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .gauge-needle {
+            width: 4px;
+            height: 65px;
+            background-color: #e74c3c;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: translateX(-50%);
+        }
+        .axis-states {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+        #engine-state {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 100px;
+        }
+        .engine-gauge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 5px solid #ddd;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+        .engine-label {
+            position: absolute;
+            top: -20px;
+            width: 100%;
+            text-align: center;
+        }
+        #engine-sum {
+            font-size: 40px;
+            font-weight: bold;
+        }
+        #brake-system {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .brake-controls {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .brake {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e74c3c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+        }
+        .brake.applied {
+            background-color: #c0392b;
+        }
+        .brake-force {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brake-number {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        .brake-button {
+            width: 20px;
+            height: 20px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .brake-button.active {
+            background-color: #e74c3c;
+        }
+        #current-dices {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .dice {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            margin: 0 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        #fail-cases {
+            background-color: #ffeeee;
+            border: 1px solid #ffcccc;
+            color: #cc0000;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            max-height: 100px;
+            overflow-y: auto;
+            word-wrap: break-word;
+        }
+        #action-form, #discussion-form {
+            display: none;
+            width: 100%;
+        }
+        #action-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        #action-buttons select, #action-buttons textarea {
+            width: 100%;
+            margin: 5px 0;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        #action-buttons button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #action-buttons button:hover {
+            background-color: #2980b9;
+        }
+        .log-entry {
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+        .log-entry .state {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .log-entry .log {
+            color: #34495e;
+        }
+        .radio-call, .landing-gear, .flap {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .radio-call h3, .landing-gear h3, .flap h3 {
+            margin-top: 0;
+        }
+        .action-button {
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 2px;
+            font-size: 12px;
+            text-align: center;
+        }
+        .action-button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        .action-button.pilot {
+            background-color: #3498db;
+        }
+        .action-button.copilot {
+            background-color: #e67e22;
+        }
+        .action-button.applied {
+            background-color: #7f8c8d;
+        }
+        #coffee-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #coffee-tokens {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #coffee-cup {
+            font-size: 40px;
+        }
+        #wind-resistance {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .wind-number {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #333;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+        .wind-button {
+            width: 20px;
+            height: 20px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .wind-button.active {
+            background-color: #e74c3c;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="image">
+            <div id="left-panel">
+                <div class="radio-call">
+                    <h3>Pilot Radio Call</h3>
+                    <button class="action-button pilot" id="pilot-use-radio">Use Radio</button>
+                </div>
+                <div class="landing-gear">
+                    <h3>Landing Gear</h3>
+                    <button class="action-button pilot" id="release-landing-gear1">Gear 1</button>
+                    <button class="action-button pilot" id="release-landing-gear2">Gear 2</button>
+                    <button class="action-button pilot" id="release-landing-gear3">Gear 3</button>
+                </div>
+            </div>
+            <div id="center-panel">
+                <div id="approach-track">
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                </div>
+                <div id="altitude-track">
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                    <div class="track-step"></div>
+                </div>
+                <div id="axis-gauge">
+                    <div class="axis-states">
+                        <span id="left-axis">Left: </span>
+                        <span id="main-axis">Axis: </span>
+                        <span id="right-axis">Right: </span>
+                    </div>
+                    <div class="gauge">
+                        <div class="gauge-center"></div>
+                        <div class="gauge-needle"></div>
+                    </div>
+                </div>
+                <div id="engine-state">
+                    <div class="engine-gauge" id="left-engine">
+                        <div class="engine-label">Left Engine</div>
+                        <span></span>
+                    </div>
+                    <div id="engine-sum">+</div>
+                    <div class="engine-gauge" id="right-engine">
+                        <div class="engine-label">Right Engine</div>
+                        <span></span>
+                    </div>
+                </div>
+                <div id="wind-resistance">
+                    <div class="wind-number">2</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">3</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">4</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">5</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">6</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">7</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">8</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">9</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">10</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">11</div>
+                    <button class="wind-button"></button>
+                    <div class="wind-number">12</div>
+                </div>
+                <div id="brake-system">
+                    <div class="brake-controls">
+                        <div class="brake" id="brake-left">Left</div>
+                        <div class="brake" id="brake-middle">Middle</div>
+                        <div class="brake" id="brake-right">Right</div>
+                    </div>
+                    <div class="brake-force">
+                        <button class="brake-button"></button>
+                        <div class="brake-number">2</div>
+                        <button class="brake-button"></button>
+                        <div class="brake-number">3</div>
+                        <button class="brake-button"></button>
+                        <div class="brake-number">4</div>
+                        <button class="brake-button"></button>
+                        <div class="brake-number">5</div>
+                        <div class="brake-number">6</div>
+                        <button class="brake-button"></button>
+                    </div>
+                </div>
+                <div id="current-dices">
+                    <div class="dice-container"></div>
+                </div>
+                <div id="coffee-area">
+                    <div id="coffee-tokens">Coffee Tokens: <span id="coffee-token-count">0</span></div>
+                    <div id="coffee-cup">☕</div>
+                </div>
+            </div>
+            <div id="right-panel">
+                <div class="radio-call">
+                    <h3>Copilot Radio Call</h3>
+                    <button class="action-button copilot" id="copilot-use-radio1">Radio 1</button>
+                    <button class="action-button copilot" id="copilot-use-radio2">Radio 2</button>
+                </div>
+                <div class="flap">
+                    <h3>Flaps</h3>
+                    <button class="action-button copilot" id="release-flap1">Flap 1</button>
+                    <button class="action-button copilot" id="release-flap2">Flap 2</button>
+                    <button class="action-button copilot" id="release-flap3">Flap 3</button>
+                    <button class="action-button copilot" id="release-flap4">Flap 4</button>
+                </div>
+            </div>
+        </div>
+        <div id="observation">
+            <div id="player-info"></div>
+            <div id="current-state"></div>
+            <div id="fail-cases"></div>
+            <div id="observation-content"></div>
+        </div>
+        <div id="action">
+            <div id="action-buttons">
+                <select id="form-select" onchange="toggleForm()">
+                    <option value="">Select form type</option>
+                    <option value="discussion">Discussion</option>
+                    <option value="action">Action</option>
+                </select>
+                <form id="discussion-form">
+                    <textarea id="discussion-input" rows="4" cols="50" placeholder="Enter your discussion..."></textarea>
+                    <button type="button" onclick="submitDiscussion()">Submit Discussion</button>
+                </form>
+                <form id="action-form">
+                    <select id="action-select">
+                        <option value="">Select an action</option>
+                    </select>
+                    <select id="dice-select">
+                        <option value="">Select a dice</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                    <div class="checkbox-group">
+                        <label>Select dice to be rerolled:</label>
+                        <label><input type="checkbox" name="reroll" value="1"> Dice 1</label>
+                        <label><input type="checkbox" name="reroll" value="2"> Dice 2</label>
+                        <label><input type="checkbox" name="reroll" value="3"> Dice 3</label>
+                        <label><input type="checkbox" name="reroll" value="4"> Dice 4</label>
+                    </div>
+                    <button type="button" onclick="submitAction()">Submit Action</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        let playerName = "{{ name }}";
+        let playerRole = "{{ role }}";
+        let currentTopic = '';
+        let currentObservation = {};
+
+        const actionLists = {
+            'pilot': ["pilot_use_radio", "reroll_dice", "pilot_correct_axis", "pilot_adjust_engine", "release_landing_gear1", "release_landing_gear2", "release_landing_gear3", 'apply_brake1', 'apply_brake2', 'apply_brake3', 'coffee_add', 'coffee_drink'],
+            'copilot': ["copilot_use_radio1", "copilot_use_radio2", "reroll_dice", "copilot_correct_axis", "copilot_adjust_engine", "release_flap1", "release_flap2", "release_flap3", "release_flap4", 'coffee_add', 'coffee_drink']
+        };
+
+        document.getElementById('player-info').innerText = `Player: ${playerName} (${playerRole})`;
+
+        const actionSelect = document.getElementById('action-select');
+        actionLists[playerRole].forEach(action => {
+            let option = document.createElement('option');
+            option.value = action;
+            option.textContent = action;
+            actionSelect.appendChild(option);
+        });
+
+        const socket = io();
+
+        socket.on('connect', function() {
+            console.log('Connected to server');
+        });
+
+        socket.on('update_observation', function(data) {
+            updateObservationContent(data.observation);
+            updateImageContent(data.observation);
+            document.getElementById('current-state').innerText = `Current State: ${data.topic}`;
+            updateFailCases(data.observation.fail_cases);
+            updateActionButtons(data.observation.current_round_allowed_actions);
+            updateCoffeeTokens(data.observation.coffee_tokens);
+            currentTopic = data.topic;
+            currentObservation = data.observation;
+        });
+
+        function updateFailCases(failCases) {
+            const failCasesElement = document.getElementById('fail-cases');
+            if (failCases && failCases.length > 0) {
+                const formattedFailCases = failCases.map(failCase => {
+                    if (typeof failCase === 'object' && failCase !== null) {
+                        return JSON.stringify(failCase);
+                    }
+                    return failCase;
+                });
+                failCasesElement.innerHTML = '<strong>Fail Cases:</strong><br>' + formattedFailCases.join('<br>');
+                failCasesElement.style.display = 'block';
+            } else {
+                failCasesElement.style.display = 'none';
+            }
+        }
+
+        function updateObservationContent(observation) {
+            const observationContent = document.getElementById('observation-content');
+            if (observation.log && Array.isArray(observation.log)) {
+                let logHtml = '';
+                observation.log.forEach(logEntry => {
+                    logHtml = `
+                        <div class="log-entry">
+                            <div class="state">${logEntry.state}</div>
+                            <div class="log">${logEntry.log}</div>
+                        </div>
+                    ` + logHtml;
+                });
+                observationContent.innerHTML = logHtml;
+            } else {
+                observationContent.innerHTML = '';
+            }
+        }
+
+        function updateImageContent(observation) {
+            if (observation.approach_track && observation.current_approach !== undefined) {
+                updateTrack('approach-track', observation.approach_track, observation.current_approach);
+            }
+
+            if (observation.altitude_track && observation.current_round !== undefined) {
+                updateTrack('altitude-track', observation.altitude_track, observation.current_round, observation.reroll_dice_positions);
+            }
+
+            if (observation.axis_state !== undefined) {
+                updateAxisGauge(observation.axis_state);
+            }
+
+            if (observation.left_axis_state !== undefined) {
+                document.getElementById('left-axis').textContent = `Left: ${observation.left_axis_state}`;
+            }
+
+            if (observation.right_axis_state !== undefined) {
+                document.getElementById('right-axis').textContent = `Right: ${observation.right_axis_state}`;
+            }
+
+            if (observation.left_engine_power !== undefined && observation.right_engine_power !== undefined) {
+                updateEngineState(observation.left_engine_power, observation.right_engine_power);
+            }
+
+            if (observation.brake_state !== undefined) {
+                updateBrakeSystem(observation.brake_state);
+            }
+
+            console.log(observation.current_brake_force);
+            if (observation.current_brake_force !== undefined) {
+                updateBrakeForce(observation.current_brake_force);
+            }
+
+            if (observation.current_round_dices !== undefined) {
+                updateCurrentDices(observation.current_round_dices);
+            }
+
+            if (observation.wind_resistance !== undefined) {
+                updateWindResistance(observation.wind_resistance);
+            }
+
+            if (observation.landing_gear_state !== undefined) {
+                updateLandingGearState(observation.landing_gear_state);
+            }
+
+            if (observation.flaps_state !== undefined) {
+                updateFlapsState(observation.flaps_state);
+            }
+
+            if (observation.radio_state !== undefined) {
+                updateRadioState(observation.radio_state);
+            }
+        }
+
+        function updateTrack(elementId, track, currentPosition, rerollPositions = []) {
+            const trackSteps = document.querySelectorAll(`#${elementId} .track-step`);
+            track.forEach((step, index) => {
+                if (index < trackSteps.length) {
+                    trackSteps[index].textContent = step;
+                    trackSteps[index].classList.remove('current', 'past', 'future', 'reroll');
+                    if (index < currentPosition) {
+                        trackSteps[index].classList.add('past');
+                    } else if (index === currentPosition) {
+                        trackSteps[index].classList.add('current');
+                    } else {
+                        trackSteps[index].classList.add('future');
+                    }
+                    if (rerollPositions.includes(index)) {
+                        trackSteps[index].classList.add('reroll');
+                    }
+                }
+            });
+        }
+
+        function updateAxisGauge(axisState) {
+            const gaugeNeedle = document.querySelector('.gauge-needle');
+            if (gaugeNeedle) {
+                const rotation = axisState * 30; // 30 degrees per state
+                gaugeNeedle.style.transform = `translateX(-50%) rotate(${rotation}deg)`;
+            }
+            document.getElementById('main-axis').textContent = `Axis: ${axisState}`;
+        }
+
+        function updateEngineState(leftEngine, rightEngine) {
+            document.querySelector('#left-engine span').textContent = leftEngine;
+            document.querySelector('#right-engine span').textContent = rightEngine;
+        }
+
+        function updateBrakeSystem(brakeState) {
+            const brakes = ['left', 'middle', 'right'];
+            brakes.forEach((brake, index) => {
+                const brakeElement = document.getElementById(`brake-${brake}`);
+                if (brakeState[index] === 1) {
+                    brakeElement.classList.add('applied');
+                } else {
+                    brakeElement.classList.remove('applied');
+                }
+            });
+        }
+
+        function updateBrakeForce(brakeForce) {
+            const brakeButtons = document.querySelectorAll('.brake-button');
+            brakeButtons.forEach((button, index) => {
+                button.classList.remove('active');
+            });
+
+            let activeIndex;
+            if (brakeForce <= 2) {
+                activeIndex = 0;
+            } else if (brakeForce <= 3) {
+                activeIndex = 1;
+            } else if (brakeForce <= 4) {
+                activeIndex = 2;
+            } else if (brakeForce <= 5) {
+                activeIndex = 3;
+            } else {
+                activeIndex = 4;
+            }
+
+            brakeButtons[activeIndex].classList.add('active');
+        }
+
+        function updateCurrentDices(dices) {
+            const diceContainer = document.querySelector('.dice-container');
+            let diceHtml = '';
+            for (let [role, roleDices] of Object.entries(dices)) {
+                diceHtml += `<div class="dice-role">${role}: `;
+                roleDices.forEach(dice => {
+                    diceHtml += `<div class="dice">${dice}</div>`;
+                });
+                diceHtml += '</div>';
+            }
+            diceContainer.innerHTML = diceHtml;
+        }
+
+        function updateWindResistance(windResistance) {
+            const windButtons = document.querySelectorAll('.wind-button');
+            windButtons.forEach((button, index) => {
+                if (index < windResistance - 2) {  // Subtract 2 because the scale starts at 2
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        function updateLandingGearState(landingGearState) {
+            ['release-landing-gear1', 'release-landing-gear2', 'release-landing-gear3'].forEach((id, index) => {
+                const button = document.getElementById(id);
+                if (landingGearState[index] === 1) {
+                    button.classList.add('applied');
+                } else {
+                    button.classList.remove('applied');
+                }
+            });
+        }
+
+        function updateFlapsState(flapsState) {
+            ['release-flap1', 'release-flap2', 'release-flap3', 'release-flap4'].forEach((id, index) => {
+                const button = document.getElementById(id);
+                if (flapsState[index] === 1) {
+                    button.classList.add('applied');
+                } else {
+                    button.classList.remove('applied');
+                }
+            });
+        }
+
+        function updateRadioState(radioState) {
+            if (radioState.pilot === 1) {
+                document.getElementById('pilot-use-radio').classList.add('applied');
+            } else {
+                document.getElementById('pilot-use-radio').classList.remove('applied');
+            }
+
+            if (radioState.copilot1 === 1) {
+                document.getElementById('copilot-use-radio1').classList.add('applied');
+            } else {
+                document.getElementById('copilot-use-radio1').classList.remove('applied');
+            }
+
+            if (radioState.copilot2 === 1) {
+                document.getElementById('copilot-use-radio2').classList.add('applied');
+            } else {
+                document.getElementById('copilot-use-radio2').classList.remove('applied');
+            }
+        }
+
+        function updateActionButtons(allowedActions) {
+            const buttons = document.querySelectorAll('.action-button');
+            buttons.forEach(button => {
+                const action = button.id.replace(/-/g, '_');
+                if (allowedActions[playerRole].includes(action)) {
+                    button.disabled = false;
+                } else {
+                    button.disabled = true;
+                }
+            });
+        }
+
+        function updateCoffeeTokens(tokens) {
+            document.getElementById('coffee-token-count').textContent = tokens;
+        }
+
+        function toggleForm() {
+            const formSelect = document.getElementById('form-select');
+            const discussionForm = document.getElementById('discussion-form');
+            const actionForm = document.getElementById('action-form');
+
+            if (formSelect.value === 'discussion') {
+                discussionForm.style.display = 'block';
+                actionForm.style.display = 'none';
+            } else if (formSelect.value === 'action') {
+                discussionForm.style.display = 'none';
+                actionForm.style.display = 'block';
+            } else {
+                discussionForm.style.display = 'none';
+                actionForm.style.display = 'none';
+            }
+        }
+
+        function submitAction() {
+            const action = document.getElementById('action-select').value;
+            const dice = document.getElementById('dice-select').value;
+            const rerollDices = Array.from(document.querySelectorAll('input[name="reroll"]:checked')).map(cb => cb.value);
+            
+            if (action && (dice || rerollDices.length > 0)) {
+                fetch('/submit_action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: `${action} ${dice}`,
+                        reroll_dices: rerollDices
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert('Please select an action and either a dice or dices to reroll.');
+            }
+        }
+
+        function submitDiscussion() {
+            const discussion = document.getElementById('discussion-input').value;
+            if (discussion) {
+                fetch('/submit_discussion', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        discussion: discussion
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    document.getElementById('discussion-input').value = ''; // Clear the input after submission
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert('Please enter a discussion before submitting.');
+            }
+        }
+
+        // Add event listeners for action buttons
+        document.querySelectorAll('.action-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.id.replace(/-/g, '_');
+                document.getElementById('action-select').value = action;
+                document.getElementById('form-select').value = 'action';
+                toggleForm();
+            });
+        });
+
+        // Initialize the page
+        updateActionButtons(actionLists[playerRole]);
+        toggleForm();
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+game:
+  name: "hanabi"
+
+players:
+
+  - name: "Alice"
+    role: "player1"
+    strategy: "naive"
+    model: "glm-4"
+
+  - name: "Bobby"
+    role: "player2"
+    strategy: "random"
+    # model: "NA"

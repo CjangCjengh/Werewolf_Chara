@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codenames Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            grid-template-rows: 4fr 1fr;
+            width: 100%;
+            height: 100vh;
+            gap: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #image {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #observation {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            background-color: #e0e0e0;
+            overflow-y: auto;
+            padding: 15px;
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #action-form {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background-color: #d0d0d0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+        h1 {
+            color: #3498db;
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+        .observation-item {
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .input-box {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="image">
+            <!-- Left empty for game board image -->
+        </div>
+        <div id="observation">
+            <h1>Codenames Player: {{ name }} ({{ role }})</h1>
+            {{ observation_html|safe }}
+        </div>
+        <div id="action-form">
+            {% if 'give_clue' in topic %}
+            <input type="text" id="clue-input" class="input-box" placeholder="Enter your clue">
+            <input type="number" id="clue-number-input" class="input-box" placeholder="Enter clue number">
+            <button onclick="submitClue()">Submit Clue</button>
+            {% elif 'guess' in topic %}
+            <input type="text" id="guess-input" class="input-box" placeholder="Enter your guess">
+            <button onclick="submitGuess()">Submit Guess</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function submitClue() {
+            const clue = document.getElementById('clue-input').value;
+            const clueNumber = document.getElementById('clue-number-input').value;
+            submitAction({clue, clueNumber});
+        }
+
+        function submitGuess() {
+            const guess = document.getElementById('guess-input').value;
+            submitAction({guess});
+        }
+
+        function submitAction(action) {
+            fetch('/submit_action', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: action
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        function updateObservation() {
+            fetch('/current_observation')
+            .then(response => response.json())
+            .then(data => {
+                let observationHtml = '';
+                Object.keys(data.observation).forEach((key, i) => {
+                    observationHtml += `
+                        <div class="observation-item">
+                            <strong>${key}:</strong> ${JSON.stringify(data.observation[key])}
+                        </div>`;
+                });
+                document.getElementById('observation').innerHTML = `
+                    <h1>Codenames Player: ${data.name} (${data.role})</h1>
+                    ${observationHtml}`;
+                setTimeout(updateObservation, 1000);
+            });
+        }
+
+        setTimeout(updateObservation, 1000); // Poll every second
+    </script>
+</body>
+</html>

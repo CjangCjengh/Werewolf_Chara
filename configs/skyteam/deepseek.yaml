@@ -1,0 +1,13 @@
+game:
+  name: "skyteam"
+
+players:
+  - name: "Alice"
+    role: "pilot"
+    strategy: "naive"
+    model: "deepseek-chat"
+
+  - name: "Bobby"
+    role: "copilot"
+    strategy: "naive"
+    model: "deepseek-chat"

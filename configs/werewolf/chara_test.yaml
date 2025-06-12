@@ -1,0 +1,58 @@
+game:
+  name: "werewolf"
+
+players:
+
+  - name: "Ayaka"
+    role: "werewolf"
+    strategy: "character"
+    character: "ayaka"
+    model: "gpt-4o-mini"
+
+  - name: "Zhongli"
+    role: "werewolf"
+    strategy: "character"
+    character: "zhongli"
+    model: "gpt-4o-mini"
+
+  - name: "Haruhi"
+    role: "werewolf"
+    strategy: "character"
+    character: "haruhi"
+    model: "gpt-4o-mini"
+
+  - name: "Hermione"
+    role: "seer"
+    strategy: "character"
+    character: "hermione"
+    model: "gpt-4o-mini"
+
+  - name: "Harry"
+    role: "witch"
+    strategy: "character"
+    character: "harry"
+    model: "gpt-4o-mini"
+  
+  - name: "Sheldon"
+    role: "hunter"
+    strategy: "character"
+    character: "sheldon"
+    model: "gpt-4o-mini"
+
+  - name: "Hutao"
+    role: "villager"
+    strategy: "character"
+    character: "hutao"
+    model: "gpt-4o-mini"
+
+  - name: "Snape"
+    role: "villager"
+    strategy: "character"
+    character: "snape"
+    model: "gpt-4o-mini"
+  
+  - name: "Raj"
+    role: "villager"
+    strategy: "character"
+    character: "raj"
+    model: "gpt-4o-mini"

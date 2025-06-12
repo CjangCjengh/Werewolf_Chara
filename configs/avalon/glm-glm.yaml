@@ -1,0 +1,34 @@
+game:
+  name: "avalon"
+
+players:
+
+  - name: "Alice"
+    role: "Merlin"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Bobby"
+    role: "Assassin"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Chris"
+    role: "Morgana"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Dylan"
+    role: "Percival"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Eliza"
+    role: "LoyalServant"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Felix"
+    role: "LoyalServant"
+    strategy: "langchain"
+    model: "glm-4"

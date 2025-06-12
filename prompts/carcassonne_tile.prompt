@@ -1,0 +1,16 @@
+Your task is to determine the optimal position and orientation for placing a new tile based on the current game state depicted in the image.
+After analyzing the image, respond with the tile placement in the format 'x,y,angle', where 'x' and 'y' are the coordinates on the map where the tile should be placed, and 'angle' is the counterclockwise rotation of the tile selected from (0, 90, 180, 270) degrees.
+Ensure that your placement connects correctly with existing tiles and strategically positions followers to maximize scoring potential.
+Only communicate your decision by providing the coordinates and rotation in the specified format.
+Evaluate the potential moves carefully, considering both immediate scoring opportunities and strategic advantages for future turns.
+
+The image contains the current map on the left and tile to be placed on the right.
+The coordinates of the places where they can be placed are given on the picture.
+You should only pick one of those.(instead of approximation)
+
+## OUTPUT
+Please make decision only by answer me in json format.
+x,y should be on the map and angle should be selected from(0,90,180,270) counterclockwise.
+
+## EXAMPLE
+{{"coordinate": [0, -1], "angle": 90}}

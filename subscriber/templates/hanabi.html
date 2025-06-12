@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanabi Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            grid-template-rows: 4fr 1fr;
+            width: 100%;
+            height: 100vh;
+            gap: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #image {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #observation {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            background-color: #e0e0e0;
+            overflow-y: auto;
+            padding: 15px;
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #action {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background-color: #d0d0d0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+        #player-info {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        #observation-content {
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .action-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .action-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #submit-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            width: 100%;
+        }
+        #submit-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="image">
+            <img src="data:image/png;base64,{{ image_base64 }}" alt="Game Image" style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+        </div>
+        <div id="observation">
+            <div id="player-info">
+                <h2>Player: {{ name }} ({{ role }})</h2>
+            </div>
+            <div id="observation-content">
+                {{ observation_html | safe }}
+            </div>
+        </div>
+        <div id="action">
+            <form id="action-form">
+                <div class="action-group">
+                    <label class="action-label" for="action-select">Choose Action:</label>
+                    <select id="action-select">
+                        <option value="give_clue">Give Clue</option>
+                        <option value="play_card">Play Card</option>
+                        <option value="discard_card">Discard Card</option>
+                    </select>
+                </div>
+                <div class="action-group" id="clue-group" style="display: none;">
+                    <label class="action-label" for="clue-input">Clue:</label>
+                    <input type="text" id="clue-input" placeholder="e.g., R, 1">
+                </div>
+                <div class="action-group" id="card-group" style="display: none;">
+                    <label class="action-label" for="card-index-input">Card Index:</label>
+                    <input type="number" id="card-index-input" min="1">
+                </div>
+                <button type="button" id="submit-button" onclick="submitAction()">Submit Action</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const actionSelect = document.getElementById('action-select');
+        const clueGroup = document.getElementById('clue-group');
+        const cardGroup = document.getElementById('card-group');
+
+        actionSelect.addEventListener('change', () => {
+            const action = actionSelect.value;
+            clueGroup.style.display = action === 'give_clue' ? 'block' : 'none';
+            cardGroup.style.display = (action === 'play_card' || action === 'discard_card') ? 'block' : 'none';
+        });
+
+        function submitAction() {
+            const action = actionSelect.value;
+            let data = { action: action };
+            if (action === 'give_clue') {
+                data.clue = document.getElementById('clue-input').value;
+            } else if (action === 'play_card' || action === 'discard_card') {
+                data.index = document.getElementById('card-index-input').value;
+            }
+            fetch('/submit_action', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('action-form').reset();
+                    alert('Action submitted successfully');
+                } else {
+                    alert('Failed to submit action');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

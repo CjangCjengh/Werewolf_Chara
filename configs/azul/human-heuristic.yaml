@@ -1,0 +1,14 @@
+game:
+  name: "azul"
+
+players:
+
+  - name: "Alice"
+    role: "player1"
+    strategy: "human"
+    model: "NA"
+
+  - name: "Bobby"
+    role: "player2"
+    strategy: "heuristic"
+    model: "NA"

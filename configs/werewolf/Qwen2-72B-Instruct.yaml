@@ -1,0 +1,48 @@
+game:
+  name: "werewolf"
+
+players:
+
+  - name: "Alice"
+    role: "werewolf"
+    strategy: "naive"
+    model:  "Qwen/Qwen2-72B-Instruct"
+# "mistralai/Mistral-7B-Instruct-v0.2"
+  - name: "Bobby"
+    role: "werewolf"
+    strategy: "naive"
+    model:  "Qwen/Qwen2-72B-Instruct"
+
+  - name: "Cacey"
+    role: "werewolf"
+    strategy: "naive"
+    model:  "Qwen/Qwen2-72B-Instruct"
+  - name: "Danny"
+    role: "seer"
+    strategy: "naive"
+    model:  "Qwen/Qwen2-72B-Instruct"
+
+  - name: "Eason"
+    role: "witch"
+    strategy: "naive"
+    model:  "Qwen/Qwen2-72B-Instruct"
+  
+  - name: "Fried"
+    role: "hunter"
+    strategy: "naive"
+    model:  "Qwen/Qwen2-72B-Instruct"
+
+  - name: "Gabbi"
+    role: "villager"
+    strategy: "naive"
+    model:  "Qwen/Qwen2-72B-Instruct"
+
+  - name: "Harry"
+    role: "villager"
+    strategy: "naive"
+    model:  "Qwen/Qwen2-72B-Instruct"
+  
+  - name: "Isaac"
+    role: "villager"
+    strategy: "naive"
+    model:  "Qwen/Qwen2-72B-Instruct"

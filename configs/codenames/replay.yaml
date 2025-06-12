@@ -1,0 +1,54 @@
+game:
+  name: "codenames"
+
+mode: "replay"
+
+replay:
+  words_on_board: ['ROULETTE', 'CHEST', 'HEART', 'MOLE', 'CHAIR', 'DINOSAUR', 'BELL', 'OCTOPUS', 'HOTEL', 'IVORY', 'DICE', 'PITCH', 'FIGURE', 'BAND', 'ORGAN', 'MARBLE', 'PLOT', 'HELICOPTER', 'IRON', 'CRANE', 'GREEN', 'EMBASSY', 'SPIDER', 'WAR', 'NEW YORK']
+  team_words:
+    red: ['ROULETTE', 'CHEST', 'HEART', 'MOLE', 'CHAIR', 'DINOSAUR', 'BELL', 'OCTOPUS']
+    blue:  ['HOTEL', 'IVORY', 'DICE', 'PITCH', 'FIGURE', 'BAND', 'ORGAN', 'MARBLE', 'PLOT']
+  neutral_words: ['HELICOPTER', 'IRON', 'CRANE', 'GREEN', 'EMBASSY', 'SPIDER', 'WAR']
+  assassin_word: 'NEW YORK'
+
+players:
+
+  - name: "Alice"
+    role: "red_spymaster"
+    strategy: "replay"
+    replay:
+      - action: "clue"
+        clue: "animal"
+        clue_number: 2
+      - action: "clue"
+        clue: "chest"
+        clue_number: 1
+
+  - name: "Bobby"
+    role: "blue_spymaster"
+    strategy: "replay"
+    replay:
+      - action: "clue"
+        clue: "pitch"
+        clue_number: 1
+
+  - name: "Cathy"
+    role: "red_operative"
+    strategy: "replay"
+    replay:
+      - action: "guess"
+        guess: "OCTOPUS"
+      - action: "guess"
+        guess: "DINOSAUR"
+      - action: "guess"
+        guess: "-1"
+
+  - name: "David"
+    role: "blue_operative"
+    strategy: "replay"
+    replay:
+      - action: "guess"
+        guess: "OCTOPUS"
+      - action: "guess"
+        guess: "PITCH"
+

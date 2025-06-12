@@ -1,0 +1,49 @@
+
+game:
+  name: "werewolf"
+
+players:
+  - name: "Alice"
+    role: "werewolf"
+    strategy: "naive"
+    model: "deepseek-ai/deepseek-llm-67b-chat"
+    
+  - name: "Bobby"
+    role: "werewolf"
+    strategy: "naive"
+    model: "deepseek-ai/deepseek-llm-67b-chat"
+
+  - name: "Cacey"
+    role: "werewolf"
+    strategy: "naive"
+    model: "deepseek-ai/deepseek-llm-67b-chat"
+
+  - name: "Danny"
+    role: "seer"
+    strategy: "naive"
+    model: "01-ai/Yi-1.5-34B-Chat-16K"
+
+  - name: "Eason"
+    role: "witch"
+    strategy: "naive"
+    model: "01-ai/Yi-1.5-34B-Chat-16K"
+  
+  - name: "Fried"
+    role: "hunter"
+    strategy: "naive"
+    model: "01-ai/Yi-1.5-34B-Chat-16K"
+
+  - name: "Gabbi"
+    role: "villager"
+    strategy: "naive"
+    model: "01-ai/Yi-1.5-34B-Chat-16K"
+
+  - name: "Harry"
+    role: "villager"
+    strategy: "naive"
+    model: "01-ai/Yi-1.5-34B-Chat-16K"
+  
+  - name: "Isaac"
+    role: "villager"
+    strategy: "naive"
+    model: "01-ai/Yi-1.5-34B-Chat-16K"

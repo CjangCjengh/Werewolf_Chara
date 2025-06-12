@@ -1,0 +1,26 @@
+game:
+  name: "codenames"
+
+mode: ""
+
+players:
+
+  - name: "Alice"
+    role: "red_spymaster"
+    strategy: "human"
+    port: 5000
+
+  - name: "Bobby"
+    role: "blue_spymaster"
+    strategy: "human"
+    port: 5001
+
+  - name: "Cathy"
+    role: "red_operative"
+    strategy: "human"
+    port: 5002
+
+  - name: "David"
+    role: "blue_operative"
+    strategy: "human"
+    port: 5003

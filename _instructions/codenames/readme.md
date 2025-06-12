@@ -1,0 +1,67 @@
+Players split up into two teams of similar size  and  skill. Two player each team.
+
+Each  team  chooses  one  player  to  be  their spymaster. Both spymasters sit on the  same  side  of  the  table.  The  other  players sit across from their spymasters. They are operatives.
+
+Randomly  choose  25  codenames  and  place them on the table in a 5-by-5 grid.
+
+Note:  While  shuffling  the  codename  cards, be sure to flip over half the deck once in awhile. This will mix the words more thoroughly.
+
+Randomly  choose  25  codenames  and  place them on the table in a 5-by-5 grid.
+
+Each game has one key that reveals the secret identities of the cards on the table, we call it the **key card**.
+
+it is a 5-by-5 grid, and the key on the card corresponds to the grid on the table. Blue color correspond to words that Blue Team must guess  (blue  agents).  Red  color  correspond  to  words  that  Red  Team  must  guess  (red  agents).  White  color are innocent bystanders, and the dark color is an assassin who should never be contacted at all!
+
+For example, a grid may look like:
+
+B W W B W
+R B D W B
+R R R R B
+B W R W R
+W B B R R
+
+(where W mean white, B means blue, D means dark, R means Red)
+
+One team will be randomly chosen to start the game. The starting team has 9words to guess. The other team has8. The starting team will give the first clue of the game.
+
+Spymasters know the secret identities of 25 agents. Their teammates know the agents only by their codenames. Spymasters take turns giving one-word clues. Aclue may relate to multiple words on the table. Thefield operatives try to guess which words their spymaster meant. When afield operative touches aword, the spymaster reveals its secret identity. If the field operatives guess correctly, they may continue guessing, until they run out of ideas for the given clue or until they hit a wrong person. Then it is the other team's turn to give a clue and guess. The first team to contact all their agents wins the game
+
+**GIVING A CLUE**
+
+If you are the spymaster, you are trying to think of aone-word clue that relates to some of the words your team is trying to guess. When you think you have agood clue, you say it. You also say one number, which tells your teammates how many codenames are related to your clue.Example: Two of your words are NUT and BARK. Both of these grow on trees, so you say tree: 2.You are allowed to give aclue for only one word (cashew: 1) but it'sfun to try for two or more. Getting four words with one clue is abig accomplishment.
+
+**One Word**
+
+ Your clue must be only one word. You are not allowed to give extra hints. For example, don't say,"This may be abit of astretch..." You are playing Codenames. It'salways abit of astretch.Your clue cannot be any of the codenames visible on the table. On later turns, some codenames will be covered up, so aclue that is not legal now might be legal later
+
+If the field operative touches a card belonging to his or her team, the spymaster covers the word with an agent card in that color. The operatives get another guess (but not another clue).
+
+If the field operative touches an innocent bystander, the spymaster covers it with an innocent bystander card. This ends the turn.
+
+If the field operative touches acard belonging to the other team, the word is covered by one of the other team's agent cards. This ends the turn. (And it helps the other team.)
+
+If the field operative touches the assassin, the word is covered by the assassin card. This ends the game! The team that contacted the assassin loses.
+
+**Tip: Before saying your clue out loud, make sure it doesn't relate to the assassin.**
+
+The  field  operatives  must  always  make  at  least  one  guess.  Any  wrong  guess  ends  the  turn  immediately, but if the field operatives guess a word of their team's color, they can keep guessing.
+
+You can stop guessing at any time, but usually you want to guess as many words as the spymaster said. Sometimes you might even want to guess one more:
+
+Example:
+
+- Red Team'sfirst clue was tree: 2. The red operative wanted to guess ORANGE and NUT. Sheguessed ORANGE first. That was an innocent bystander, so she did not get achance to guess NUT.
+- Blue Team took aturn and correctly guessed two words. Now it is Red Team'sturn again.
+- The red spymaster says river: 3. The red operative is pretty sure the AMAZON is ariver, so she touches that card. The spymaster covers it with a red agent card, so she gets to go again. A river has a BED, so she touches that codename. It's also red, so she can go again.
+- She's not sure of the third river word. She picks NUT. This has nothing to do with river. She is guessing aword from the previous clue.
+- NUT  is  ared  word.  The  operative  has  made  3 correct guesses for the clue river:  3. She is allowed one final guess. She can try to find the third river word, or she can try to find the other tree word. Or she can stop at three and let Blue Team have a turn.
+
+**You are allowed only one extra guess.** In the example  above,  the  red  operative  would  be  allowed 4guesses because her spymaster said the  number  3.  When  the  field  operatives  say  they  are  done  guessing  (or  when  they  guess  wrong) it is the other team'sturn.
+
+**ENDING THE GAME**
+
+The game ends when one team has all their words covered. That team wins.
+
+It is possible to win on the other team's turn if they guess your last word.
+
+The  game  can  end  early  if  a field  operative  makes   contact   with   the   assassin.   That   operative's team loses.

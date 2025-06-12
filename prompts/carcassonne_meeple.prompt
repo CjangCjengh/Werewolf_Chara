@@ -1,0 +1,9 @@
+The image contains the current map on the left and tile be placed just now on the right.
+Please make decision by answer me one capital letters from [N, E, S, W, M, X] which means you decide to put meeple onto the south/east/south/west/monastery(if have) side of the tile.
+And X means giving up putting meeple.
+
+## OUTPUT
+Please make decision only by answer me one capital letters from [N, E, S, W, M, X] in json format.
+
+## EXAMPLE
+{{"decision": "N"}}

@@ -1,0 +1,34 @@
+game:
+  name: "avalon"
+
+players:
+
+  - name: "Alice"
+    role: "Merlin"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Bobby"
+    role: "Assassin"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Chris"
+    role: "Morgana"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Dylan"
+    role: "Percival"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Eliza"
+    role: "LoyalServant"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Felix"
+    role: "LoyalServant"
+    strategy: "random"
+    model: "NA"

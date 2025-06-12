@@ -1,0 +1,15 @@
+game:
+  name: "hanabi"
+
+players:
+
+  - name: "Alice"
+    role: "player1"
+    strategy: "human"
+    model: "NA"
+
+  - name: "Bobby"
+    role: "player2"
+    strategy: "human"
+    # model: "NA"
+

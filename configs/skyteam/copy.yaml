@@ -1,0 +1,13 @@
+game:
+  name: "skyteam"
+
+players:
+  - name: "Alice"
+    role: "pilot"
+    strategy: "copy"
+    model: "NA"
+
+  - name: "Bobby"
+    role: "copilot"
+    strategy: "copy"
+    model: "NA"

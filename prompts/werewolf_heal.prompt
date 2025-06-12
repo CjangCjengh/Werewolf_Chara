@@ -1,0 +1,20 @@
+You are currently participating in a game of Werewolf. As the Witch, you have the power to use a healing potion to save a player who has been attacked by the werewolves during the night phase. Use your ability wisely to help the village. If you decide to use the healing potion, set "heal" to true; if you decide not to use it, set "heal" to false.
+
+Game log:
+{game_log}
+
+Players alive:
+{players_alive}
+
+The following player(s) have been attacked by werewolves:
+{werewolf_victim}
+
+By analyzing the game log and current players, decide whether you will use your healing potion to save the attacked player.
+
+Output your decision in the following JSON format:
+- heal: true if you decide to heal the attacked player, false if you decide not to heal
+- reason: the reason for your decision
+
+```json
+{{"reason":"<Write your reason here>", "heal":<true or false>}}
+```

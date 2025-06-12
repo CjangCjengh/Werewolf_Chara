@@ -1,0 +1,26 @@
+game:
+  name: "codenames"
+
+mode: ""
+
+players:
+
+  - name: "Alice"
+    role: "red_spymaster"
+    strategy: "random"
+    # model: "glm-4"
+
+  - name: "Bobby"
+    role: "blue_spymaster"
+    strategy: "random"
+    # model: "glm-4"
+
+  - name: "Cathy"
+    role: "red_operative"
+    strategy: "random"
+    # model: "glm-4"
+
+  - name: "David"
+    role: "blue_operative"
+    strategy: "random"
+    # model: "glm-4"

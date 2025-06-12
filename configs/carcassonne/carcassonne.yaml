@@ -1,0 +1,30 @@
+game:
+  name: "carcassonne"
+players:
+
+  - name: "Alice"
+    role: "blue"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Bob"
+    role: "pink"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Charlie"
+    role: "yellow"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Dave"
+    role: "black"
+    strategy: "langchain"
+    model: "glm-4"
+
+  - name: "Eve"
+    role: "green"
+    strategy: "langchain"
+    model: "glm-4"
+
+    

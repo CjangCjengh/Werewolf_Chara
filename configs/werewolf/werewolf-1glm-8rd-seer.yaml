@@ -1,0 +1,49 @@
+game:
+  name: "werewolf"
+
+players:
+
+  - name: "Alice"
+    role: "werewolf"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Bobby"
+    role: "werewolf"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Cacey"
+    role: "werewolf"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Danny"
+    role: "seer"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Eason"
+    role: "witch"
+    strategy: "naive"
+    model: "glm"
+  
+  - name: "Fried"
+    role: "hunter"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Gabbi"
+    role: "villager"
+    strategy: "random"
+    model: "NA"
+
+  - name: "Harry"
+    role: "villager"
+    strategy: "random"
+    model: "NA"
+  
+  - name: "Isaac"
+    role: "villager"
+    strategy: "random"
+    model: "NA"

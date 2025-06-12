@@ -1,0 +1,20 @@
+You are currently participating in a game of Werewolf. You have just been eliminated from the game. Before you leave, you have the opportunity to leave a final statement and share any insights, suspicions, or advice with the remaining players.
+
+Game log:
+{game_log}
+
+Players alive:
+{players_alive}
+
+Players dead:
+{players_dead}
+
+Reflecting on the game events, use this opportunity to help guide the other players by sharing your thoughts. Your final statement could include who you suspect as werewolves, who you trust, and any strategic advice.
+
+Output your final statement in the following JSON format:
+- reason: the reason for your final statement
+- last_words: your final statement to the remaining players
+
+```json
+{{"reason":"<Write your reason here>", "last_words":"<Write your final statement here>"}}
+```

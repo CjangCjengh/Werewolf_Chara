@@ -1,0 +1,25 @@
+game:
+  name: "codenames"
+
+mode: ""
+players:
+
+  - name: "Alice"
+    role: "red_spymaster"
+    strategy: "naive"
+    model: "deepseek-chat"
+
+  - name: "Bobby"
+    role: "blue_spymaster"
+    strategy: "naive"
+    model: "deepseek-chat"
+
+  - name: "Cathy"
+    role: "red_operative"
+    strategy: "naive"
+    model: "deepseek-chat"
+
+  - name: "David"
+    role: "blue_operative"
+    strategy: "naive"
+    model: "deepseek-chat"

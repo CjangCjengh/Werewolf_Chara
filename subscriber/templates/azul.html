@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azul Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            grid-template-rows: 4fr 1fr;
+            width: 100%;
+            height: 100vh;
+            gap: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #image {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        #observation {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            background-color: #e0e0e0;
+            overflow-y: auto;
+            padding: 15px;
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #action {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background-color: #d0d0d0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+        h1 {
+            color: #3498db;
+            margin-top: 0;
+        }
+        .observation {
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        #action-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        label {
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #submit-button {
+            background-color: #2ecc71;
+        }
+        #submit-button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="image">
+            <img src="data:image/png;base64,{{ image_base64 }}" alt="Game State">
+        </div>
+        <div id="observation">
+            <h1>Azul Player: {{ name }} ({{ role }})</h1>
+            <div class="observation">
+                {{ observation_html|safe }}
+            </div>
+        </div>
+        <div id="action">
+            <form id="action-form">
+                <label for="table">Table:</label>
+                <select id="table" name="table">
+                    <option value="0">Table Center</option>
+                    <option value="1">Factory 1</option>
+                    <option value="2">Factory 2</option>
+                    <option value="3">Factory 3</option>
+                    <option value="4">Factory 4</option>
+                    <option value="5">Factory 5</option>
+                </select>
+                <label for="color">Color:</label>
+                <select id="color" name="color">
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="blue">Blue</option>
+                    <option value="red">Red</option>
+                    <option value="ONE">One</option>
+                </select>
+                <label for="row">Row:</label>
+                <select id="row" name="row">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button id="submit-button" type="submit">Submit</button>
+                <button type="button" onclick="location.reload();">Refresh</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById("action-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            fetch('/submit_action', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    table: document.getElementById("table").value,
+                    color: document.getElementById("color").value,
+                    row: document.getElementById("row").value
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            grid-template-rows: 4fr 1fr;
+            width: 100%;
+            height: 100%;
+            gap: 10px;
+            background-color: #ADD8E6; /* Light blue background */
+        }
+        #image {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            background-color: #B0C4DE; /* Light steel blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #observation {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            background-color: #4169E1; /* Royal blue background */
+            overflow-y: auto;
+            padding: 10px;
+        }
+        #action {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background-color: #B0C4DE; /* Light steel blue background */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #submit-button {
+            background-color: #32CD32; /* Lime green background */
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="image">Id: image</div>
+        <div id="observation">
+            <p>todo show player's name and role</p>
+            <!-- show observation html here -->
+        </div>
+        <div id="action">
+            Id: action
+            <button id="submit-button">Submit action button</button>
+        </div>
+    </div>
+</body>
+</html>
